@@ -1,23 +1,36 @@
-// Import necessary modules
+require("dotenv").config();
 const express = require("express");
-const dotenv = require("dotenv");
-const connectDB = require("./config/db.js"); // Import the database connection function
+const cors = require("cors");
+const path = require("path");
+const connectDB = require("./config/db");
 
-// Load environment variables from .env file
-dotenv.config();
-
-// Initialize the Express application
 const app = express();
 
-// Middleware to parse incoming JSON requests
+//* Middleware to handle CORS
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+//* Middleware
 app.use(express.json());
 
-// Set the port from environment variable or default to 3001
-const PORT = process.env.PORT || 3001;
 
-// Connect to the database, then start the server
+//* Routes
+
+// app.use("/api/auth", authRoutes);
+// app.use("/api/users", userRoutes);
+// app.use("/api/tasks", taskRoutes);
+// app.use("/api/reports", reportRoutes);
+
+
+const PORT = process.env.PORT || 5000;
+//* Start Server when the DataBase is connected
 connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is connected successfully on port ${PORT}`);
-  });
+  app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+}).catch(err => {
+  console.error("Failed to connect to DB", err);
 });
