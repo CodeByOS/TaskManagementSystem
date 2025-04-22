@@ -14,3 +14,4 @@ connectDB().then(() => {
     console.log(`server is connect succefuly on  port ${PORT}`);
   });
 });
+console.log("test");
