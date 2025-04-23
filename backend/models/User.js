@@ -45,3 +45,4 @@ const UserSchema = new mongoose.Schema(
 
 // Export the model so it can be used elsewhere in the app
 module.exports = mongoose.model("User", UserSchema);
+
